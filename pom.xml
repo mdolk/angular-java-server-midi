@@ -91,7 +91,6 @@
 						<configuration>
 							<jsSrcDir>${project.basedir}/src/main/webapp</jsSrcDir>
 							<sourceIncludes>
-								<include>js/lib/angular-*.patched.js</include>
 								<include>js/*.js</include>
 							</sourceIncludes>
 							<jsTestSrcDir>${project.basedir}/src/test/js</jsTestSrcDir>
