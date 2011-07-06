@@ -2,7 +2,7 @@ function PianoCtrl($xhr) {
 	$xhr.defaults.headers.post['Content-Type'] = 'application/json';
 	var scope = this;
 
-	scope.genKeyboard = function(startOctave, endOctave) {
+	var genKeyboard = function(startOctave, endOctave) {
 		if (startOctave < 0 || endOctave > 8 || startOctave >= endOctave) throw "Bad arguments";
 		var notes = [
 			['C',  0,   'white'], ['Db', 0.5, 'black'],	['D',  1,   'white'], ['Eb', 1.5, 'black'],
@@ -51,7 +51,7 @@ function PianoCtrl($xhr) {
 	scope.startOctave = 2;
 	scope.endOctave = 6;
 	scope.resetKeyboard = function() {
-		scope.keyboard = scope.genKeyboard(scope.startOctave, scope.endOctave);
+		scope.keyboard = genKeyboard(scope.startOctave, scope.endOctave);
 	}
 	scope.resetKeyboard();
 	
