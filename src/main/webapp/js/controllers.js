@@ -1,8 +1,8 @@
 function PianoCtrl($xhr) {
 	$xhr.defaults.headers.post['Content-Type'] = 'application/json';
-	var self = this;
+	var scope = this;
 
-	this.genKeyboard = function(startOctave, endOctave) {
+	scope.genKeyboard = function(startOctave, endOctave) {
 		if (startOctave < 0 || endOctave > 8 || startOctave >= endOctave) throw "Bad arguments";
 		var notes = [
 			['C',  0,   'white'], ['Db', 0.5, 'black'],	['D',  1,   'white'], ['Eb', 1.5, 'black'],
@@ -33,31 +33,31 @@ function PianoCtrl($xhr) {
 		return keys.concat( genOctave(endOctave, 0, 1) );	// C
 	}
 
-	this.NOTE_ON = 144;
-	this.NOTE_OFF = 128;
-	this.sendMidiCommand = function(command, midiNote) {
+	scope.NOTE_ON = 144;
+	scope.NOTE_OFF = 128;
+	scope.sendMidiCommand = function(command, midiNote) {
 		var midiMessage = {
 			command: command,
-			channel: this.channel,
+			channel: scope.channel,
 			note: midiNote,
-			velocity: this.velocity
+			velocity: scope.velocity
 		}
 		var timeStart = new Date().getTime();
 		$xhr('POST', '/data/midi/send', midiMessage, function(code, response) {
-			self.latency = new Date().getTime() - timeStart;
+			scope.latency = new Date().getTime() - timeStart;
 		});
 	}
 
-	this.startOctave = 2;
-	this.endOctave = 6;
-	this.resetKeyboard = function() {
-		this.keyboard = this.genKeyboard(this.startOctave,this.endOctave);
+	scope.startOctave = 2;
+	scope.endOctave = 6;
+	scope.resetKeyboard = function() {
+		scope.keyboard = scope.genKeyboard(scope.startOctave, scope.endOctave);
 	}
-	this.resetKeyboard();
+	scope.resetKeyboard();
 	
-	this.latency = 0;
-	this.showNames = true;
-	this.channel = 0;
-	this.velocity = 60;
+	scope.latency = 0;
+	scope.showNames = true;
+	scope.channel = 0;
+	scope.velocity = 60;
 }
 PianoCtrl.$inject = ['$xhr'];
