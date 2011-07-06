@@ -169,8 +169,15 @@ function MockBrowser() {
 
   self.defer.now = 0;
 
-  self.defer.flush = function(time) {
-    self.defer.now += (time || 0);
+  self.defer.flush = function(delay) {
+    if (angular.isDefined(delay)) {
+      self.defer.now += delay;
+    } else {
+      if (self.deferredFns.length) {
+        self.defer.now = self.deferredFns[self.deferredFns.length-1].time;
+      }
+    }
+
     while (self.deferredFns.length && self.deferredFns[0].time <= self.defer.now) {
       self.deferredFns.shift().fn();
     }
@@ -239,9 +246,9 @@ angular.service('$browser', function(){
  *
  * See {@link angular.mock} for more info on angular mocks.
  */
-angular.service('$exceptionHandler', function(e) {
-  return function(e) {throw e;};
-}, {$inject:[]});
+angular.service('$exceptionHandler', function() {
+  return function(e) { throw e;};
+});
 
 
 /**
