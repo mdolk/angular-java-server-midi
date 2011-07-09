@@ -89,9 +89,9 @@
 							<goal>preparePackage</goal>
 						</goals>
 						<configuration>
-							<jsSrcDir>${project.basedir}/src/main/webapp</jsSrcDir>
+							<jsSrcDir>${project.basedir}/src/main/webapp/js</jsSrcDir>
 							<sourceIncludes>
-								<include>js/*.js</include>
+								<include>*.js</include>
 							</sourceIncludes>
 							<jsTestSrcDir>${project.basedir}/src/test/js</jsTestSrcDir>
 							<specIncludes>
@@ -99,7 +99,7 @@
 								<include>spec/*.js</include>
 							</specIncludes>
 							<preloadSources>
-								<source>js/lib/angular-0.9.17.patched.js</source>
+								<source>lib/angular-0.9.17.patched.js</source>
 								<source>lib/angular-mocks.js</source>
 							</preloadSources>
 						</configuration>
