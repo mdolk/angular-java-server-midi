@@ -7,7 +7,8 @@ with a Java server using Maven.
 **Note!** This project is using a slightly patched version of angular.js, see
 [this thread](http://groups.google.com/group/angular/browse_thread/thread/d80617f2d8e9255c)
 on the Angular mailing list. Also, have a look at the
-[pull request](https://github.com/angular/angular.js/pull/453)
+[pull request](https://github.com/angular/angular.js/pull/453). **Update:** The pull request
+has been commited to angular mainline. We will not need to patch angular as of next release!
 
 The project is using the [jasmine-maven-plugin](https://github.com/searls/jasmine-maven-plugin)
 to execute the Jasmine Specs for angular controllers. This plugin outputs JUnit XML
