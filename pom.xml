@@ -93,13 +93,14 @@
           </sourceIncludes>
           <jsTestSrcDir>${project.basedir}/src/test/js</jsTestSrcDir>
           <specIncludes>
-            <include>lib/angular-mocks-1.0.7.js</include>
             <include>spec/*.js</include>
           </specIncludes>
           <preloadSources>
-            <source>lib/angular-1.0.7.min.js</source>
-            <source>lib/angular-mocks-1.0.7.js</source>
+            <source>http://code.jquery.com/jquery-1.9.1.js</source>
+            <source>${project.basedir}/src/main/webapp/js/lib/angular-1.0.7.min.js</source>
+            <source>${project.basedir}/src/test/js/lib/angular-mocks-1.0.7.js</source>
           </preloadSources>
+          <!--webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName-->
         </configuration>
 			</plugin>
         </plugins>
