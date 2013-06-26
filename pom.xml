@@ -78,33 +78,29 @@
 				<!-- https://github.com/searls/jasmine-maven-plugin -->
 				<groupId>com.github.searls</groupId>
 				<artifactId>jasmine-maven-plugin</artifactId>
-				<version>1.0.2-beta-2</version>
+				<version>1.3.1.2</version>
 				<executions>
 					<execution>
 						<goals>
-							<goal>generateManualRunner</goal>
-							<goal>resources</goal>
-							<goal>testResources</goal>
 							<goal>test</goal>
-							<goal>preparePackage</goal>
 						</goals>
-						<configuration>
-							<jsSrcDir>${project.basedir}/src/main/webapp/js</jsSrcDir>
-							<sourceIncludes>
-								<include>*.js</include>
-							</sourceIncludes>
-							<jsTestSrcDir>${project.basedir}/src/test/js</jsTestSrcDir>
-							<specIncludes>
-								<include>lib/angular-mocks.js</include>
-								<include>spec/*.js</include>
-							</specIncludes>
-							<preloadSources>
-								<source>lib/angular-0.9.17.patched.js</source>
-								<source>lib/angular-mocks.js</source>
-							</preloadSources>
-						</configuration>
 					</execution>
 				</executions>
+        <configuration>
+          <jsSrcDir>${project.basedir}/src/main/webapp/js</jsSrcDir>
+          <sourceIncludes>
+            <include>*.js</include>
+          </sourceIncludes>
+          <jsTestSrcDir>${project.basedir}/src/test/js</jsTestSrcDir>
+          <specIncludes>
+            <include>lib/angular-mocks-1.0.7.js</include>
+            <include>spec/*.js</include>
+          </specIncludes>
+          <preloadSources>
+            <source>lib/angular-1.0.7.min.js</source>
+            <source>lib/angular-mocks-1.0.7.js</source>
+          </preloadSources>
+        </configuration>
 			</plugin>
         </plugins>
         <finalName>angular-java-server-midi</finalName>
