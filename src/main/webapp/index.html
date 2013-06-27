@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="piano">
 <head>
 	<title>Server Side Piano</title>
 	<script src="js/lib/angular-1.0.7.min.js"></script>
@@ -11,31 +11,31 @@
 			<div id="logo">Server Side Piano</div>
 			<div id="box">
 				Keys
-				<select id="start-octave" name="startOctave" ng-format="number" ng-change="resetKeyboard()">
+				<select id="start-octave" ng-model="startOctave" ng-format="number" ng-change="resetKeyboard()">
 					<option value="0">A0</option>
 					<option value="1">A1</option>
 					<option value="2">A2</option>
 					<option value="3">A3</option>
 				</select>
 				-				
-				<select id="end-octave" name="endOctave" ng-format="number" ng-change="resetKeyboard()">
+				<select id="end-octave" ng-model="endOctave" ng-format="number" ng-change="resetKeyboard()">
 					<option value="5">C5</option>
 					<option value="6">C6</option>
 					<option value="7">C7</option>
 					<option value="8">C8</option>
 				</select>
-				Note names <input type="checkbox" name="showNames" />				
+				Note names <input type="checkbox" ng-model="showNames" />				
 			</div>
 		</div>
 
 		<div id="keyboard">
-			<div ng-repeat="key in keyboard.$filter({color:'white'})"
+			<div ng-repeat="key in keyboard | filter:{color:'white'}"
 				 class="key white"
 				 ng-style="key.cssPosition"
 				 ng-click="sendMidiCommand(NOTE_ON, key.midiNote)">
 				<span ng-show="showNames" class="key-name">{{key.name}}</span>
 			</div>
-			<div ng-repeat="key in keyboard.$filter({color:'black'})"
+			<div ng-repeat="key in keyboard | filter:{color:'black'}"
 				 class="key black"
 				 ng-style="key.cssPosition"
 				 ng-click="sendMidiCommand(NOTE_ON, key.midiNote)">

@@ -1,7 +1,6 @@
-function PianoCtrl($xhr) {
-	$xhr.defaults.headers.post['Content-Type'] = 'application/json';
-	var scope = this;
+angular.module('piano', []);
 
+function PianoCtrl($scope, $http) {
 	var genKeyboard = function(startOctave, endOctave) {
 		if (startOctave < 0 || endOctave > 8 || startOctave >= endOctave) throw "Bad arguments";
 		var notes = [
@@ -25,39 +24,39 @@ function PianoCtrl($xhr) {
 				});
 			}
 			return keys;
-		}
+		};
 		var keys = genOctave(startOctave, 9, 12);			// A, Bb, B
 		for (var oct=startOctave+1; oct < endOctave; oct++) {
 			keys = keys.concat( genOctave(oct, 0, 12) );	// Full octave
 		}
 		return keys.concat( genOctave(endOctave, 0, 1) );	// C
-	}
+	};
 
-	scope.NOTE_ON = 144;
-	scope.NOTE_OFF = 128;
-	scope.sendMidiCommand = function(command, midiNote) {
+	$scope.NOTE_ON = 144;
+	$scope.NOTE_OFF = 128;
+	$scope.sendMidiCommand = function(command, midiNote) {
 		var midiMessage = {
 			command: command,
-			channel: scope.channel,
+			channel: $scope.channel,
 			note: midiNote,
-			velocity: scope.velocity
-		}
+			velocity: $scope.velocity
+		};
 		var timeStart = new Date().getTime();
-		$xhr('POST', '/data/midi/send', midiMessage, function(code, response) {
-			scope.latency = new Date().getTime() - timeStart;
+		$http.post('data/midi/send', midiMessage).success(function(response, code) {
+			$scope.latency = new Date().getTime() - timeStart;
 		});
-	}
+	};
 
-	scope.startOctave = 2;
-	scope.endOctave = 6;
-	scope.resetKeyboard = function() {
-		scope.keyboard = genKeyboard(scope.startOctave, scope.endOctave);
-	}
-	scope.resetKeyboard();
+	$scope.startOctave = 2;
+	$scope.endOctave = 6;
+	$scope.resetKeyboard = function() {
+		$scope.keyboard = genKeyboard($scope.startOctave, $scope.endOctave);
+	};
+	$scope.resetKeyboard();
 	
-	scope.latency = 0;
-	scope.showNames = true;
-	scope.channel = 0;
-	scope.velocity = 60;
+	$scope.latency = 0;
+	$scope.showNames = true;
+	$scope.channel = 0;
+	$scope.velocity = 60;
 }
-PianoCtrl.$inject = ['$xhr'];
+PianoCtrl.$inject = ['$scope', '$http'];
